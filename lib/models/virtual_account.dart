@@ -1,6 +1,9 @@
 class VirtualAccount {
   String? bank;
   String? vaNumber;
+  static String bri = "bri";
+  static String bca = "bca";
+  static String bni = "bni";
 
   VirtualAccount({this.bank, this.vaNumber});
 

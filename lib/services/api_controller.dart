@@ -1,12 +1,13 @@
 
 import 'package:get/get.dart';
+import 'package:payment/config.dart';
 
 class ApiController extends GetConnect {
   static final ApiController _instance = ApiController._internal();
   factory ApiController() => _instance;
 
   ApiController._internal() {
-    httpClient.baseUrl = "https://payment.jinom.net";
+    httpClient.baseUrl = Config.getUrl();
   }
 
   transactionDetail(String token) => get("/api/transaction/$token", headers: {

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:payment/models/virtual_account.dart';
 import 'package:payment/pages/home/home.binding.dart';
 import 'package:payment/pages/home/home_controller.dart';
 import 'package:payment/pages/home/home_view.dart';
@@ -9,28 +10,43 @@ import 'package:payment/router/app_pages.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 void main() {
+  runApp(getApp(null));
   configLoading();
-  launch();
 }
 
-void launch() {
-  runApp(GetMaterialApp(
+Widget getApp(
+  String? token, {
+  List<VirtualAccount>? virtualAccounts,
+  BuildContext? context,
+}) {
+  return GetMaterialApp(
     debugShowCheckedModeBanner: false,
     initialRoute: AppPages.INITIAL,
     defaultTransition: Transition.fade,
     initialBinding: HomeBinding(),
     getPages: AppPages.routes,
     builder: EasyLoading.init(),
-    onInit: () {
-      print("Material Page initalized");
-    },
-    onReady: () {
+    onReady: () async {
       var homePageController = Get.find<HomeController>();
-      // homePageController.snap_token = token;
+      if (token != null) {
+        homePageController.snap_token = token;
+        if (context != null) {
+          homePageController.finishMethod = () {
+            Navigator.of(context).pop();
+          };
+        }
 
-      homePageController.getTransactionDetail();
+        if (virtualAccounts != null && virtualAccounts.length > 0)
+          homePageController.specifiedVirtualAccount = virtualAccounts;
+
+        await homePageController.getTransactionDetail();
+        homePageController.watchPeriodic();
+      } else {
+        homePageController.getAuthToken();
+        homePageController.getSpecifiedVirtualAccount();
+      }
     },
-  ));
+  );
 }
 
 void configLoading() {

@@ -6,9 +6,9 @@ class Merchant {
   Merchant({this.merchantName, this.merchantLogoUrl, this.storeColor});
 
   Merchant.fromJson(Map<String, dynamic> json) {
-    merchantName = json['merchant_name'];
+    merchantName = json['merchant_name'] == null ? "Merchant" : json['merchant_name'];
     merchantLogoUrl = json['merchant_logo_url'];
-    storeColor = json['store_color'];
+    storeColor = json['store_color'] == null ? "000000" : json['store_color']; 
   }
 
   Map<String, dynamic> toJson() {

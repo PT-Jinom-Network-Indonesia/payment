@@ -16,6 +16,10 @@ enum HomeFragment { ChoosedPayment, TransactionInformation }
 enum HomePageEnum { SuccessPage, TransactionPage }
 
 class HomeController extends GetxController {
+
+  Function finishMethod = () {
+    SystemNavigator.pop();
+  };
   HomePageEnum currentPage = HomePageEnum.TransactionPage;
   HomeFragment fragment = HomeFragment.ChoosedPayment;
   var homePageId = "home-page";
@@ -35,10 +39,6 @@ class HomeController extends GetxController {
   void onReady() {
     super.onReady();
     // debugOnReady();
-    if(platform.isBlank == true) {
-      getAuthToken();
-      getSpecifiedVirtualAccount();
-    }
   }
 
   debugOnReady() async {
@@ -239,8 +239,7 @@ class HomeController extends GetxController {
   }
 
   finish() async {
-    SystemNavigator.pop();
-    // var result = await platform.invokeMethod("finishActivity");
+    finishMethod();
   }
 
   expiredTimeInMilis() {
@@ -251,8 +250,6 @@ class HomeController extends GetxController {
       expiredTime = tempDate.millisecondsSinceEpoch;
 
       return expiredTime;
-      // var expiredTimeInMilis = ;
-      // return new ;
     }
     return 0;
   }
