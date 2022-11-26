@@ -1,11 +1,57 @@
-# payment
-
-A new Flutter module project.
-
+# Payment
+Snap for Jinom Payment
 ## Getting Started
 
-For help getting started with Flutter development, view the online
-[documentation](https://flutter.dev/).
+### Installation dependecies
 
-For instructions integrating Flutter modules to your existing applications,
-see the [add-to-app documentation](https://flutter.dev/docs/development/add-to-app).
+Edit your pubspec.yaml
+
+```yaml
+dependencies:
+    payment:
+        git: 
+            url: https://github.com/PT-Jinom-Network-Indonesia/payment.git
+            ref: main
+```
+
+And run ``` flutter pub get```
+
+### Using snap
+
+```dart
+
+import 'package:payment/payment.dart';
+...
+
+var token = "YOUR SNAP TOKEN";
+var payment = Payment();
+payment.pay(token);
+
+...
+```
+
+
+### Using static virtual account number
+
+```dart
+
+import 'package:payment/payment.dart';
+import 'package:payment/models/virtual_account.dart';
+...
+
+List<VirtualAccount> virtualAccounts = [
+                            VirtualAccount(
+                                bank: VirtualAccount.bri,
+                                vaNumber: "083119030893",
+                            )
+
+                            // And Other Bank 
+                        ];
+
+var token = "YOUR SNAP TOKEN";
+var payment = Payment();
+payment.setVirtualAccounts(virtualAccounts);
+payment.pay(token);
+
+...
+```
