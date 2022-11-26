@@ -14,7 +14,7 @@ dependencies:
             ref: main
 ```
 
-And run ``` flutter pub get```
+And run ```flutter pub get```
 
 ### Using snap
 
@@ -24,7 +24,7 @@ import 'package:payment/payment.dart';
 ...
 
 var token = "YOUR SNAP TOKEN";
-var payment = Payment();
+var payment = Payment(context);
 payment.pay(token);
 
 ...
@@ -49,7 +49,7 @@ List<VirtualAccount> virtualAccounts = [
                         ];
 
 var token = "YOUR SNAP TOKEN";
-var payment = Payment();
+var payment = Payment(context);
 payment.setVirtualAccounts(virtualAccounts);
 payment.pay(token);
 
