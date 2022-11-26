@@ -1,6 +1,6 @@
 # Payment
 Snap for Jinom Payment
-## Getting Started
+## Getting Started for Flutter
 
 ### Installation dependecies
 
